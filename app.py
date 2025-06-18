@@ -6,17 +6,21 @@ import os
 
 # Check model files
 if not os.path.exists('emotion_model.h5'):
-    st.error("Model file 'emotion_model.h5' tidak ditemukan!")
+    st.error("Model file 'emotion_model.h5' not found!")
     st.stop()
 
 if not os.path.exists('haarcascade_frontalface_default.xml'):
-    st.error("File Haar Cascade tidak ditemukan!")
+    st.error("Haar Cascade file not found!")
     st.stop()
 
 # Load model and cascade
-model = load_model('emotion_model.h5')
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-emotion_labels = ['Marah', 'Jijik', 'Takut', 'Senang', 'Sedih', 'Terkejut', 'Netral']
+try:
+    model = load_model('emotion_model.h5')
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+    emotion_labels = ['Marah', 'Jijik', 'Takut', 'Senang', 'Sedih', 'Terkejut', 'Netral']
+except Exception as e:
+    st.error(f"Error loading model/files: {str(e)}")
+    st.stop()
 
 st.title("Deteksi Ekspresi Wajah")
 
