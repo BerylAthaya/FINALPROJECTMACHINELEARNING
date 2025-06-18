@@ -50,13 +50,4 @@ if uploaded_file is not None:
                 
                 # Predict emotion
                 pred = model.predict(face_roi)[0]
-                emotion = emotion_labels[np.argmax(pred)]
-                
-                # Draw rectangle and label
-                cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
-                cv2.putText(image, emotion, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
-            
-            st.image(image, channels="BGR", caption="Hasil Deteksi", width=300)
-            
-    except Exception as e:
-        st.error(f"Terjadi error: {str(e)}")
+                emotion = emotion_labels[np.argmax
