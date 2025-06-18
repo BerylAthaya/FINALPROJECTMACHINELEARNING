@@ -1,15 +1,18 @@
-import tensorflow as tf
+from tensorflow.keras.models import load_model
 import tf2onnx
 
-# 1. Load model TensorFlow (.h5)
-model = tf.keras.models.load_model('emotion_model.h5')
+# 1. Load Model Keras (.h5)
+model = load_model('emotion_model.h5')  # Pastikan file ada di folder yang sama
 
-# 2. Konversi ke ONNX
-onnx_model, _ = tf2onnx.convert.from_keras(
-    model,
-    output_path='emotion_model.onnx',  # Nama output
-    opset=13,                         # Versi ONNX opset
-    input_signature=[tf.TensorSpec(shape=(None, 48, 48, 1), dtype=tf.float32, name='input')]  # Sesuaikan shape input model Anda!
+# 2. Konversi ke ONNX (Sintaks Terbaru tf2onnx >=1.9.0)
+model_proto, _ = tf2onnx.convert.from_keras(
+    model, 
+    input_signature=None,  # Optional: sesuaikan dengan input model
+    opset=13  # Versi ONNX opset (default=13)
 )
+
+# 3. Simpan Model ONNX
+with open('emotion_model.onnx', 'wb') as f:
+    f.write(model_proto.SerializeToString())
 
 print("✅ Konversi berhasil! File ONNX disimpan sebagai 'emotion_model.onnx'")
