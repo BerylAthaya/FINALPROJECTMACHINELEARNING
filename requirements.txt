@@ -1,8 +1,8 @@
 streamlit==1.28.0
 opencv-python-headless==4.8.0.76
-numpy==1.24.3  # Versi yang kompatibel dengan TF 2.13
-tensorflow-cpu==2.13.0
+numpy==1.23.5  # Versi khusus untuk kompatibilitas
+tensorflow-cpu==2.10.1  # Versi terakhir yang stabil untuk Python 3.10
 pillow==9.5.0
 protobuf==3.20.3
-h5py==3.9.0
-setuptools==69.5.1
+h5py==3.7.0
+setuptools==65.5.0
