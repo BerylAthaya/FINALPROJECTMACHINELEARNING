@@ -2,5 +2,7 @@
 streamlit==1.28.0
 opencv-python-headless==4.8.0.76
 numpy==1.24.3
-tensorflow-cpu==2.13.0  # Untuk Python 3.11
+tensorflow-cpu==2.13.0
 pillow==9.5.0
+protobuf==3.20.3  # Untuk menghindari konflik dengan TensorFlow
+h5py==3.9.0  # Untuk model .h5
