@@ -1,5 +1,6 @@
+--prefer-binary
 streamlit==1.28.0
 opencv-python-headless==4.8.0.76
 numpy==1.24.3
-tensorflow-cpu==2.13.0  # Versi lebih baru yang mendukung Python 3.11
+tensorflow-cpu==2.13.0  # Untuk Python 3.11
 pillow==9.5.0
