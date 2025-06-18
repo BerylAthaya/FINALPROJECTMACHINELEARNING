@@ -1,28 +1,15 @@
-import streamlit as st
-import cv2
-import numpy as np
-from tensorflow.keras.models import load_model
-import os
+import tensorflow as tf
+import tf2onnx
 
-# Perbaikan khusus untuk TensorFlow 2.10
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Menghilangkan warning
+# 1. Load model TensorFlow (.h5)
+model = tf.keras.models.load_model('emotion_model.h5')
 
-# Check model files
-if not os.path.exists('emotion_model.h5'):
-    st.error("Model file 'emotion_model.h5' not found!")
-    st.stop()
+# 2. Konversi ke ONNX
+onnx_model, _ = tf2onnx.convert.from_keras(
+    model,
+    output_path='emotion_model.onnx',  # Nama output
+    opset=13,                         # Versi ONNX opset
+    input_signature=[tf.TensorSpec(shape=(None, 48, 48, 1), dtype=tf.float32, name='input')]  # Sesuaikan shape input model Anda!
+)
 
-if not os.path.exists('haarcascade_frontalface_default.xml'):
-    st.error("Haar Cascade file not found!")
-    st.stop()
-
-# Load model and cascade
-try:
-    model = load_model('emotion_model.h5', compile=False)
-    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-    emotion_labels = ['Marah', 'Jijik', 'Takut', 'Senang', 'Sedih', 'Terkejut', 'Netral']
-except Exception as e:
-    st.error(f"Error loading model/files: {str(e)}")
-    st.stop()
-
-# Rest of your app code...
+print("✅ Konversi berhasil! File ONNX disimpan sebagai 'emotion_model.onnx'")
