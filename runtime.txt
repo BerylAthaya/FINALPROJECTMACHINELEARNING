@@ -1,2 +1,1 @@
-pyenv install 3.11.6
-pyenv local 3.11.6
+python-3.11.6
